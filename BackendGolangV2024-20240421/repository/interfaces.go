@@ -7,8 +7,11 @@ package repository
 import (
 	"context"
 	"github.com/SawitProRecruitment/UserService/model"
+	"github.com/google/uuid"
 )
 
 type RepositoryInterface interface {
 	Create(ctx context.Context, payload model.Estate) error
+	CreateTree(ctx context.Context, payload model.Tree) error
+	FindEstateById(ctx context.Context, id uuid.UUID) (model.Estate, error)
 }

@@ -14,4 +14,5 @@ func NewRouter(
 
 	r := e.Group("")
 	r.POST("/estate", h.CreateEstate)
+	r.POST("/estate/:id/tree", h.CreateTree)
 }

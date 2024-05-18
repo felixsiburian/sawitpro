@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/SawitProRecruitment/UserService/router"
 	service2 "github.com/SawitProRecruitment/UserService/service"
 	"github.com/joho/godotenv"
@@ -25,7 +24,6 @@ func newServer() {
 	}
 
 	dbDsn := os.Getenv("DATABASE_URL")
-	fmt.Println("db: ", dbDsn)
 	var repo repository.RepositoryInterface = repository.NewRepository(repository.NewRepositoryOptions{
 		Dsn: dbDsn,
 	})
