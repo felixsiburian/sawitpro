@@ -6,7 +6,37 @@
 -- In this assignment we will use PostgreSQL as the database.
 
 -- This is test table. Remove this table and replace with your own tables. 
-CREATE TABLE test (
-	id serial PRIMARY KEY,
-	name VARCHAR ( 50 ) UNIQUE NOT NULL,
+create table estate
+(
+    id         uuid,
+    width      int,
+    length     int,
+    created_at timestamptz,
+    updated_at timestamptz,
+    deleted_at timestamptz null
 );
+
+create table tree
+(
+    id         uuid,
+    width      int,
+    length     int,
+    height     int,
+    estate_id  uuid,
+    created_at timestamptz,
+    updated_at timestamptz,
+    deleted_at timestamptz null
+);
+
+create table stats
+(
+    tree_id    uuid,
+    width      int,
+    length     int,
+    height     int,
+    estate_id  uuid,
+    created_at timestamptz,
+    updated_at timestamptz,
+    deleted_at timestamptz null
+);
+

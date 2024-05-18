@@ -15,4 +15,6 @@ func NewRouter(
 	r := e.Group("")
 	r.POST("/estate", h.CreateEstate)
 	r.POST("/estate/:id/tree", h.CreateTree)
+	r.PATCH("/:id/tree", h.UpdateTree)
+	r.GET("/estate/:id/stats", h.TreeStatsByEstateId)
 }

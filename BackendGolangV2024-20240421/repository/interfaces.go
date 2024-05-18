@@ -14,4 +14,9 @@ type RepositoryInterface interface {
 	Create(ctx context.Context, payload model.Estate) error
 	CreateTree(ctx context.Context, payload model.Tree) error
 	FindEstateById(ctx context.Context, id uuid.UUID) (model.Estate, error)
+	CreateStats(ctx context.Context, payload model.Stats) error
+	UpdateTree(ctx context.Context, payload model.Tree) error
+	FindTreeById(ctx context.Context, id uuid.UUID) (model.Tree, error)
+	FindStatsByEstateId(ctx context.Context, id uuid.UUID) (FindStatsResponse, error)
+	ListStatsByEstateId(ctx context.Context, id uuid.UUID) ([]model.Stats, error)
 }
