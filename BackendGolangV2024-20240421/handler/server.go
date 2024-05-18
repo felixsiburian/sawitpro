@@ -1,15 +1,21 @@
 package handler
 
-import "github.com/SawitProRecruitment/UserService/repository"
+import (
+	"github.com/SawitProRecruitment/UserService/service"
+	"github.com/labstack/echo/v4"
+)
 
 type Server struct {
-	Repository repository.RepositoryInterface
+	e       *echo.Echo
+	Service service.ServiceInterface
 }
 
-type NewServerOptions struct {
-	Repository repository.RepositoryInterface
-}
-
-func NewServer(opts NewServerOptions) *Server {
-	return &Server{}
+func NewServer(
+	e *echo.Echo,
+	service service.ServiceInterface,
+) *Server {
+	return &Server{
+		e:       e,
+		Service: service,
+	}
 }

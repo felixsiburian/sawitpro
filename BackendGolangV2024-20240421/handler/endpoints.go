@@ -1,17 +1,26 @@
 package handler
 
 import (
-	"fmt"
+	"encoding/json"
+	"github.com/SawitProRecruitment/UserService/service"
 	"net/http"
 
-	"github.com/SawitProRecruitment/UserService/generated"
 	"github.com/labstack/echo/v4"
 )
 
-// This is just a test endpoint to get you started. Please delete this endpoint.
-// (GET /hello)
-func (s *Server) GetHello(ctx echo.Context, params generated.GetHelloParams) error {
-	var resp generated.HelloResponse
-	resp.Message = fmt.Sprintf("Hello User %d", params.Id)
-	return ctx.JSON(http.StatusOK, resp)
+func (s *Server) CreateEstate(ec echo.Context) error {
+	var payload service.PayloadCreateEstate
+
+	if err := json.NewDecoder(ec.Request().Body).Decode(&payload); err != nil {
+		return ec.JSON(http.StatusBadRequest, err)
+	}
+
+	res, err := s.Service.CreateEstate(ec.Request().Context(), payload)
+	if err != nil {
+		return ec.JSON(http.StatusInternalServerError, err)
+	}
+
+	return ec.JSON(http.StatusCreated, map[string]interface{}{
+		"id": res,
+	})
 }
