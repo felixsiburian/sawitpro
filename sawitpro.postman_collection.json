@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "40008c4b-f623-4116-ba34-80250a95f1b5",
+		"name": "sawitpro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "4760244"
+	},
+	"item": [
+		{
+			"name": "create estate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"width\":1,\n    \"length\":5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/estate"
+			},
+			"response": []
+		},
+		{
+			"name": "create tree",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"width\":4,\n    \"length\":1,\n    \"height\":4\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/estate/fedd94de-301a-446d-a15a-1204fad198fe/tree"
+			},
+			"response": []
+		},
+		{
+			"name": "update tree",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"height\":15\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/013fa588-6ccd-445f-b9fe-4f0d57947f60/tree"
+			},
+			"response": []
+		},
+		{
+			"name": "get tree stats by estate id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/estate/fedd94de-301a-446d-a15a-1204fad198fe/stats"
+			},
+			"response": []
+		},
+		{
+			"name": "drone plan",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/estate/fedd94de-301a-446d-a15a-1204fad198fe/drone-plan"
+			},
+			"response": []
+		}
+	]
+}
