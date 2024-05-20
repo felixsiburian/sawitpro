@@ -19,4 +19,5 @@ type RepositoryInterface interface {
 	FindTreeById(ctx context.Context, id uuid.UUID) (model.Tree, error)
 	FindStatsByEstateId(ctx context.Context, id uuid.UUID) (FindStatsResponse, error)
 	ListStatsByEstateId(ctx context.Context, id uuid.UUID) ([]model.Stats, error)
+	FindAllTreeByEstateId(ctx context.Context, estateId uuid.UUID) ([]model.Tree, error)
 }

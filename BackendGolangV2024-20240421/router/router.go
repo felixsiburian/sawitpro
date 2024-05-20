@@ -17,4 +17,5 @@ func NewRouter(
 	r.POST("/estate/:id/tree", h.CreateTree)
 	r.PATCH("/:id/tree", h.UpdateTree)
 	r.GET("/estate/:id/stats", h.TreeStatsByEstateId)
+	r.GET("/estate/:id/drone-plan", h.Distance)
 }

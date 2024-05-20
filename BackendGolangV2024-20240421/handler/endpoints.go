@@ -73,10 +73,23 @@ func (s *Server) TreeStatsByEstateId(ec echo.Context) error {
 	uuidId := uuid.MustParse(id)
 
 	res, err := s.Service.TreeStatsByEstateId(ec.Request().Context(), uuidId)
-	fmt.Println("err: ", err)
 	if err != nil {
 		return ec.JSON(http.StatusInternalServerError, err)
 	}
 
 	return ec.JSON(http.StatusOK, res)
+}
+
+func (s Server) Distance(ec echo.Context) error {
+	estateId := ec.Param("id")
+	uuidEstateId := uuid.MustParse(estateId)
+
+	res, err := s.Service.DroneDistance(ec.Request().Context(), uuidEstateId)
+	if err != nil {
+		return ec.JSON(http.StatusInternalServerError, err)
+	}
+
+	return ec.JSON(http.StatusOK, map[string]interface{}{
+		"distance": res,
+	})
 }

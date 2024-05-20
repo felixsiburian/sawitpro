@@ -2,10 +2,14 @@ package service
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"github.com/SawitProRecruitment/UserService/model"
 	"github.com/SawitProRecruitment/UserService/repository"
 	"github.com/SawitProRecruitment/UserService/utils"
 	"github.com/google/uuid"
+	"math"
+	"sort"
 )
 
 type Service struct {
@@ -160,4 +164,60 @@ func (s Service) countMedianHeight(ctx context.Context, id uuid.UUID) (int, erro
 
 	mid := x / 2
 	return (heights[mid-1] + heights[mid]) / 2, nil
+}
+
+func (s Service) DroneDistance(ctx context.Context, estateId uuid.UUID) (int, error) {
+	treeData, err := s.repo.FindAllTreeByEstateId(ctx, estateId)
+	if err != nil {
+		return -1, err
+	}
+
+	s.sortTrees(treeData)
+
+	trees, _ := json.Marshal(treeData)
+	fmt.Println("tree: ", string(trees))
+
+	distance := s.calculateTotalDistance(treeData)
+
+	return distance, nil
+}
+
+func (s Service) sortTrees(cubes []model.Tree) {
+	sort.Slice(cubes, func(i, j int) bool {
+		if cubes[i].Width != cubes[j].Width {
+			return cubes[i].Width < cubes[j].Width
+		}
+		if cubes[i].Length != cubes[j].Length {
+			return cubes[i].Length < cubes[j].Length
+		}
+		return cubes[i].Height < cubes[j].Height
+	})
+}
+
+func (s Service) calculateTotalDistance(trees []model.Tree) int {
+	totalDistance := 0
+	horizontalDistance := 10
+	droneElevation := 1
+
+	previousWidth := 1
+	previousHeight := 0
+	droneLandDistance := trees[len(trees)-1].Height + 1
+
+	for i := 0; i < len(trees); i++ {
+		current := trees[i]
+
+		totalDistance += horizontalDistance * int(math.Abs(float64(current.Width-previousWidth)))
+
+		totalDistance += int(math.Abs(float64(current.Height + droneElevation - previousHeight)))
+
+		previousWidth = current.Width
+		previousHeight = current.Height + droneElevation
+	}
+
+	totalDistance += int(math.Abs(float64(previousWidth)))
+
+	totalDistance += previousHeight
+	totalDistance += droneLandDistance
+
+	return totalDistance
 }

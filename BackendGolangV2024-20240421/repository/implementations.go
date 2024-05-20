@@ -189,3 +189,33 @@ func (r *Repository) ListStatsByEstateId(ctx context.Context, id uuid.UUID) ([]m
 
 	return res, nil
 }
+
+func (r *Repository) FindAllTreeByEstateId(ctx context.Context, estateId uuid.UUID) ([]model.Tree, error) {
+	var res []model.Tree
+
+	query := `
+		select 
+			id, width, length, height
+		from
+			tree
+		where
+			estate_id = $1
+			AND deleted_at is null
+	`
+
+	rows, err := r.Db.Query(query, estateId)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var tree model.Tree
+		if err := rows.Scan(&tree.Id, &tree.Width, &tree.Length, &tree.Height); err != nil {
+			return nil, err
+		}
+
+		res = append(res, tree)
+	}
+
+	return res, nil
+}
